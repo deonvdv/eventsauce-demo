@@ -4,9 +4,13 @@ Simple Event Sauce with Laravel demo
 
 I created a Todo and published 800 updates. Aggregate still loaded instantly.
 
+## Run
+
+`$ php artisan serve`
+
 ## Add Todo
 
-http://127.0.0.1:8000/?todo=random todo
+http://127.0.0.1:8000/?todo=random%20todo
 
 ## Update Todo
 
