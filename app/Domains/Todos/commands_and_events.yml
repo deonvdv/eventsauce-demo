@@ -1,0 +1,21 @@
+namespace: Todos
+commands:
+  # AddTodo:
+  #   fields:
+  #     identifier: TodoId
+  #     user_id: int
+  #     todo: string
+  # UpdateTodo:
+  #   fields:
+  #     identifier: TodoId
+  #     todo: string
+events:
+  TodoAdded:
+    fields:
+      identifier: TodoId
+      user_id: int
+      todo: string
+  TodoUpdated:
+    fields:
+      identifier: TodoId
+      todo: string
