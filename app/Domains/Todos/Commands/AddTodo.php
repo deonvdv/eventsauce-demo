@@ -4,23 +4,15 @@ namespace Todos\Commands;
 
 use Todos\TodoId;
 use Todos\TodoRepository;
-use Illuminate\Console\Command;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 
-class AddTodo extends Command
+class AddTodo implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'todos:add';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command to add todo';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var TodoId
@@ -47,8 +39,6 @@ class AddTodo extends Command
         $this->todo_id = $todo_id;
         $this->user_id = $user_id;
         $this->todo = $todo;
-
-        parent::__construct();
     }
 
     /**

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Todos;
 
+use App\Domains\Todos\Projectors\UpdateTodoViewModel;
 use EventSauce\LaravelEventSauce\AggregateRootRepository;
 
 /** @method \App\Domains\Todos\Todo retrieve(\App\Domains\Todos\TodoId $aggregateRootId) */
@@ -22,5 +23,7 @@ final class TodoRepository extends AggregateRootRepository
     protected $table = 'todo_domain_messages';
 
     /** @var array */
-    protected $consumers = [];
+    protected $consumers = [
+        UpdateTodoViewModel::class,
+    ];
 }

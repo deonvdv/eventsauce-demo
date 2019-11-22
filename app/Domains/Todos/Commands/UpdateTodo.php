@@ -4,23 +4,15 @@ namespace Todos\Commands;
 
 use Todos\TodoId;
 use Todos\TodoRepository;
-use Illuminate\Console\Command;
+use Illuminate\Bus\Queueable;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
 
-class UpdateTodo extends Command
+class UpdateTodo implements ShouldQueue
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'todos:update';
-
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command to update todo';
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     /**
      * @var TodoId
@@ -41,8 +33,6 @@ class UpdateTodo extends Command
     {
         $this->todo_id = $todo_id;
         $this->todo = $todo;
-
-        parent::__construct();
     }
 
     /**
@@ -52,9 +42,13 @@ class UpdateTodo extends Command
      */
     public function handle(TodoRepository $repository): void
     {
-
         // Get the Todo Aggregate Root
         $todo = $repository->retrieve($this->todo_id);
+
+        // Check if AR exists
+        if ($todo->aggregateRootVersion() == 0) {
+            throw new ModelNotFoundException();
+        }
 
         try {
             // Call update on AR
