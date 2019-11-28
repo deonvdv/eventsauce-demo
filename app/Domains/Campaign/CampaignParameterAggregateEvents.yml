@@ -1,0 +1,13 @@
+namespace: Acme\Campaign
+events:
+  CampaignParameterCreated:
+    fields:
+      id: CampaignParameterAggregateId
+      campaign_aggregate_id: Acme\Campaign\CampaignAggregateId
+      name: string
+      value: string
+  CampaignParameterUpdated:
+    fields:
+      id: CampaignParameterAggregateId
+      name: string
+      value: string

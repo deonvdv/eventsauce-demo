@@ -5,17 +5,17 @@ commands:
   #     identifier: TodoId
   #     user_id: int
   #     todo: string
-  # UpdateTodo:
-  #   fields:
-  #     identifier: TodoId
-  #     todo: string
+  ProcessTodo:
+    fields:
+      id: TodoId
+      todo: string
 events:
   TodoAdded:
     fields:
-      identifier: TodoId
+      id: TodoId
       user_id: int
       todo: string
   TodoUpdated:
     fields:
-      identifier: TodoId
+      id: TodoId
       todo: string

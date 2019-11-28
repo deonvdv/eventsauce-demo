@@ -11,7 +11,7 @@ final class TodoAdded implements SerializablePayload
     /**
      * @var TodoId
      */
-    private $identifier;
+    private $id;
 
     /**
      * @var int
@@ -24,18 +24,18 @@ final class TodoAdded implements SerializablePayload
     private $todo;
 
     public function __construct(
-        TodoId $identifier,
+        TodoId $id,
         int $user_id,
         string $todo
     ) {
-        $this->identifier = $identifier;
+        $this->id = $id;
         $this->user_id = $user_id;
         $this->todo = $todo;
     }
 
-    public function identifier(): TodoId
+    public function id(): TodoId
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     public function user_id(): int
@@ -51,7 +51,7 @@ final class TodoAdded implements SerializablePayload
     public static function fromPayload(array $payload): SerializablePayload
     {
         return new TodoAdded(
-            new TodoId($payload['identifier']),
+            new TodoId($payload['id']),
             (int) $payload['user_id'],
             (string) $payload['todo']
         );
@@ -60,7 +60,7 @@ final class TodoAdded implements SerializablePayload
     public function toPayload(): array
     {
         return [
-            'identifier' => $this->identifier->toString(),
+            'id' => $this->id,
             'user_id' => (int) $this->user_id,
             'todo' => (string) $this->todo,
         ];
@@ -69,10 +69,10 @@ final class TodoAdded implements SerializablePayload
     /**
      * @codeCoverageIgnore
      */
-    public static function withIdentifierAndUser_idAndTodo(TodoId $identifier, int $user_id, string $todo): TodoAdded
+    public static function withIdAndUser_idAndTodo(TodoId $id, int $user_id, string $todo): TodoAdded
     {
         return new TodoAdded(
-            $identifier,
+            $id,
             $user_id,
             $todo
         );
@@ -84,7 +84,7 @@ final class TodoUpdated implements SerializablePayload
     /**
      * @var TodoId
      */
-    private $identifier;
+    private $id;
 
     /**
      * @var string
@@ -92,16 +92,16 @@ final class TodoUpdated implements SerializablePayload
     private $todo;
 
     public function __construct(
-        TodoId $identifier,
+        TodoId $id,
         string $todo
     ) {
-        $this->identifier = $identifier;
+        $this->id = $id;
         $this->todo = $todo;
     }
 
-    public function identifier(): TodoId
+    public function id(): TodoId
     {
-        return $this->identifier;
+        return $this->id;
     }
 
     public function todo(): string
@@ -112,7 +112,7 @@ final class TodoUpdated implements SerializablePayload
     public static function fromPayload(array $payload): SerializablePayload
     {
         return new TodoUpdated(
-            new TodoId($payload['identifier']),
+            new TodoId($payload['id']),
             (string) $payload['todo']
         );
     }
@@ -120,7 +120,7 @@ final class TodoUpdated implements SerializablePayload
     public function toPayload(): array
     {
         return [
-            'identifier' => $this->identifier->toString(),
+            'id' => new TodoId($this->id),
             'todo' => (string) $this->todo,
         ];
     }
@@ -128,10 +128,68 @@ final class TodoUpdated implements SerializablePayload
     /**
      * @codeCoverageIgnore
      */
-    public static function withIdentifierAndTodo(TodoId $identifier, string $todo): TodoUpdated
+    public static function withIdAndTodo(TodoId $id, string $todo): TodoUpdated
     {
         return new TodoUpdated(
-            $identifier,
+            $id,
+            $todo
+        );
+    }
+}
+
+final class ProcessTodo implements SerializablePayload
+{
+    /**
+     * @var TodoId
+     */
+    private $id;
+
+    /**
+     * @var string
+     */
+    private $todo;
+
+    public function __construct(
+        TodoId $id,
+        string $todo
+    ) {
+        $this->id = $id;
+        $this->todo = $todo;
+    }
+
+    public function id(): TodoId
+    {
+        return $this->id;
+    }
+
+    public function todo(): string
+    {
+        return $this->todo;
+    }
+
+    public static function fromPayload(array $payload): SerializablePayload
+    {
+        return new ProcessTodo(
+            new TodoId($payload['id']),
+            (string) $payload['todo']
+        );
+    }
+
+    public function toPayload(): array
+    {
+        return [
+            'id' => new TodoId($this->id),
+            'todo' => (string) $this->todo,
+        ];
+    }
+
+    /**
+     * @codeCoverageIgnore
+     */
+    public static function withIdAndTodo(TodoId $id, string $todo): ProcessTodo
+    {
+        return new ProcessTodo(
+            $id,
             $todo
         );
     }

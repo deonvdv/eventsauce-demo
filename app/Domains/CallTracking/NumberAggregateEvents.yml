@@ -1,0 +1,17 @@
+namespace: Acme\CallTracking
+events:
+  NumberCreated:
+    fields:
+      id: NumberAggregateId
+      campaign_aggregate_id: Acme\Campaign\CampaignAggregateId
+      channel: string
+      number: string
+      record: bool
+      intercept: bool
+  NumberUpdated:
+    fields:
+      id: NumberAggregateId
+      channel: string
+      number: string
+      record: bool
+      intercept: bool

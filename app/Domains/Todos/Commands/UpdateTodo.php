@@ -9,6 +9,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UpdateTodo implements ShouldQueue
 {
@@ -52,7 +53,14 @@ class UpdateTodo implements ShouldQueue
 
         try {
             // Call update on AR
-            $todo->update($this);
+            // $todo->update($this);
+
+            // or do work here and record the event(s)
+
+            $todo->recordThat(new TodoUpdated(
+                $this->todo_id(),
+                $this->todo(),
+            ));
         } finally {
             $repository->persist($todo);
         }

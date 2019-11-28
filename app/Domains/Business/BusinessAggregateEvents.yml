@@ -1,0 +1,22 @@
+namespace: Acme\Business
+events:
+  BusinessCreated:
+    fields:
+      id: BusinessAggregateId
+      campaign_aggregate_id: Acme\Campaign\CampaignAggregateId
+      name: int
+      street: string
+      street2: string
+      city: string
+      state: string
+      zip: string
+      country: string
+      phone: string
+      url: string
+      lat: float
+      long: float
+      social: array
+  BusinessUpdated:
+    fields:
+      id: BusinessAggregateId
+      data: array

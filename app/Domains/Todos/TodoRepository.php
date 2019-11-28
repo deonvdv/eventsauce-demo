@@ -5,7 +5,10 @@ declare(strict_types=1);
 namespace Todos;
 
 use App\Domains\Todos\Projectors\UpdateTodoViewModel;
+use EventSauce\EventSourcing\DefaultHeadersDecorator;
 use EventSauce\LaravelEventSauce\AggregateRootRepository;
+use Todos\Decorator\ContextDecorator;
+use Todos\Decorator\TestDecorator;
 
 /** @method \App\Domains\Todos\Todo retrieve(\App\Domains\Todos\TodoId $aggregateRootId) */
 final class TodoRepository extends AggregateRootRepository
@@ -25,5 +28,12 @@ final class TodoRepository extends AggregateRootRepository
     /** @var array */
     protected $consumers = [
         UpdateTodoViewModel::class,
+    ];
+
+    /** @var array */
+    protected $decorators = [
+        TestDecorator::class,
+        ContextDecorator::class,
+        // DefaultHeadersDecorator::class,
     ];
 }

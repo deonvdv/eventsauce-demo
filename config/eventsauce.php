@@ -1,5 +1,9 @@
 <?php
 
+use Acme\Campaign\CampaignAggregateRepository;
+use App\Domains\Business\BusinessAggregateRepository;
+use App\Domains\CallTracking\NumberAggregateRepository;
+use App\Domains\Campaign\CampaignParameterAggregateRepository;
 use Todos\TodoRepository;
 
 return [
@@ -15,7 +19,7 @@ return [
      * The default database table name, used to store messages.
      */
 
-    'table' => env('EVENTSAUCE_TABLE', 'domain_messages'),
+    'table' => env('EVENTSAUCE_TABLE', 'events'),
 
     /*
      * Here you specify all of your aggregate root repositories.
@@ -28,6 +32,10 @@ return [
     'repositories' => [
         // App\Domain\MyAggregateRoot\MyAggregateRootRepository::class,
         TodoRepository::class,
+        CampaignAggregateRepository::class,
+        CampaignParameterAggregateRepository::class,
+        BusinessAggregateRepository::class,
+        NumberAggregateRepository::class,
     ],
 
 ];

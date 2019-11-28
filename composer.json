@@ -12,7 +12,9 @@
         "eventsauce/laravel-eventsauce": "master",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "~6.0",
-        "laravel/tinker": "^1.0"
+        "laravel/tinker": "^1.0",
+        "jukylin/jaeger-php": "dev-master@dev",
+        "ramsey/uuid": "^3.7"
     },
     "require-dev": {
         "facade/ignition": "^1.4",
@@ -34,7 +36,8 @@
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Todos\\": "app/"
+            "Todos\\": "app/",
+            "Acme\\": "app/"
         },
         "classmap": [
             "database/seeds",

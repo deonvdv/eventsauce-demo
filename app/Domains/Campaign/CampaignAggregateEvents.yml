@@ -1,0 +1,21 @@
+namespace: Acme\Campaign
+events:
+  CampaignCreated:
+    fields:
+      version: int
+      id: CampaignAggregateId
+      user_id: int
+      objective: string
+      eaid: string
+      eiid: string
+      listing_id: string
+      thryv_id: string
+      cid: string
+      budget: float
+      business: array
+      campaign_parameters: array
+  CampaignUpdated:
+    fields:
+      version: int
+      id: CampaignAggregateId
+      data: array

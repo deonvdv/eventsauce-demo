@@ -5,6 +5,7 @@ namespace Todos\Commands;
 use Todos\TodoId;
 use Todos\TodoRepository;
 use Illuminate\Bus\Queueable;
+use App\EventSource\Contextable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
@@ -12,7 +13,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 
 class AddTodo implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, Contextable;
 
     /**
      * @var TodoId
@@ -48,6 +49,8 @@ class AddTodo implements ShouldQueue
      */
     public function handle(TodoRepository $repository): void
     {
+
+        // dump($this->context);
 
         // Get the Todo Aggregate Root
         $todo = $repository->retrieve($this->todo_id);
